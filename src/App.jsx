@@ -6,6 +6,7 @@ import Dashboard from './pages/Dashboard';
 import DoctorManagement from './pages/DoctorManagement';
 import TokenBooking from './pages/TokenBooking';
 import TokenDisplay from './pages/TokenDisplay';
+import NotFound from './pages/NotFound';
 import User from './pages/User';
 const App = () => {
   return (
@@ -19,7 +20,7 @@ const App = () => {
         <Route path="/doctor-management" element={<DoctorManagement />} />
         <Route path="/token-booking" element={<TokenBooking />} />
         <Route path="/token-panel" element={<TokenDisplay/>} />
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </Router>
   );
