@@ -1,7 +1,6 @@
 import { Edit2, UserCheck } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from 'react-hot-toast';
+import { toast } from "react-hot-toast";
 import axiosInstance from "../api/axiosInstance.js";
 
 const TokenDisplay = () => {
@@ -38,52 +37,45 @@ const TokenDisplay = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-900">Select a Doctor</h1>
+    <div className="min-h-screen bg-teal-50 flex flex-col items-center p-6">
+      <h1 className="text-3xl font-bold text-gray-900 mb-6">Select a Doctor</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-4xl">
+        {doctors.map((doctor) => (
+          <div
+            key={doctor._id}
+            className={`p-4 bg-white shadow-lg rounded-lg cursor-pointer transition duration-200 hover:shadow-xl flex items-center justify-between ${
+              selectedDoctor === doctor._id ? "border-2 border-teal-500" : ""
+            }`}
+            onClick={() => setSelectedDoctor(doctor._id)}
+          >
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900">{doctor.name}</h3>
+              <p className="text-sm text-gray-500">{doctor.specialization}</p>
+            </div>
+            <div className="flex items-center space-x-3">
+              <button className="text-gray-400 hover:text-gray-500">
+                <Edit2 className="h-5 w-5" />
+              </button>
+              <button
+                className={`${
+                  doctor.availability ? "text-green-500" : "text-gray-400"
+                } hover:text-green-600`}
+              >
+                <UserCheck className="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
-        <ul className="divide-y divide-gray-200">
-          {doctors.map((doctor) => (
-            <li
-              key={doctor._id}
-              className={`px-6 py-4 cursor-pointer ${
-                selectedDoctor === doctor._id ? "bg-gray-100" : ""
-              }`}
-              onClick={() => setSelectedDoctor(doctor._id)}
-            >
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-medium text-gray-900">{doctor.name}</h3>
-                  <p className="text-sm text-gray-500">{doctor.specialization}</p>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <button className="text-gray-400 hover:text-gray-500">
-                    <Edit2 className="h-5 w-5" />
-                  </button>
-                  <button
-                    className={`${
-                      doctor.availability ? "text-green-500" : "text-gray-400"
-                    } hover:text-green-600`}
-                  >
-                    <UserCheck className="h-5 w-5" />
-                  </button>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="mt-6">
+      <div className="mt-6 w-full flex flex-col items-center">
         <button
           onClick={incrementToken}
-          className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+          className="px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg shadow-md hover:bg-teal-700 transition duration-200"
         >
           Increment Token
         </button>
-        {token && <p className="mt-2 text-lg font-semibold">Current Token: {token}</p>}
+        {token && <p className="mt-3 text-lg font-semibold text-gray-700">Current Token: {token}</p>}
       </div>
     </div>
   );

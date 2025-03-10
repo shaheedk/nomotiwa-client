@@ -1,91 +1,65 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Users, Ticket, UserCircle } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Users, Ticket, UserCircle } from "lucide-react";
 
 function Dashboard() {
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">Hospital Management</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-gray-700">temp user</span>
-              <Link to='/login'
-                className="text-gray-600 hover:text-gray-900"
-              >
-                Logout
-              </Link>
-            </div>
+    <div className="min-h-screen bg-gradient-to-b from-teal-100 to-teal-50">
+      {/* Navbar */}
+      <nav className="bg-white shadow-md py-4">
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
+          <h1 className="text-3xl font-semibold text-gray-900">Hospital Management</h1>
+          <div className="flex items-center space-x-6">
+            <span className="text-gray-700 text-lg font-medium">Temp User</span>
+            <Link to="/login" className="text-red-600 font-medium hover:text-red-800 transition">
+              Logout
+            </Link>
           </div>
         </div>
       </nav>
 
-      <main className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <Link
+      {/* Dashboard Content */}
+      <main className="max-w-7xl mx-auto py-16 px-6">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {/* Card Component */}
+          <DashboardCard
             to="/doctors"
-            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
-          >
-            <div className="p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <Users className="h-8 w-8 text-indigo-600" />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Doctor Management</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Add and manage hospital doctors
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
+            icon={<Users className="h-10 w-10 text-indigo-600" />}
+            title="Doctor Management"
+            description="Add and manage hospital doctors"
+          />
 
-          <Link
+          <DashboardCard
             to="/tokens"
-            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
-          >
-            <div className="p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <Ticket className="h-8 w-8 text-green-600" />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Token Booking</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Book and manage patient tokens
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
+            icon={<Ticket className="h-10 w-10 text-green-600" />}
+            title="Token Booking"
+            description="Book and manage patient tokens"
+          />
 
-          <Link
+          <DashboardCard
             to="/token-panel"
-            className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
-          >
-            <div className="p-6">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <UserCircle className="h-8 w-8 text-purple-600" />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Token Panel</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    View and update your profile
-                  </p>
-                </div>
-              </div>
-            </div>
-          </Link>
+            icon={<UserCircle className="h-10 w-10 text-purple-600" />}
+            title="Token Panel"
+            description="View and update your profile"
+          />
         </div>
       </main>
     </div>
   );
 }
+
+// Reusable Card Component
+const DashboardCard = ({ to, icon, title, description }) => (
+  <Link
+    to={to}
+    className="bg-white rounded-2xl shadow-lg p-8 flex items-center space-x-6 hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200"
+  >
+    <div className="p-4 bg-gray-100 rounded-full">{icon}</div>
+    <div>
+      <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
+      <p className="text-gray-600 text-sm mt-2">{description}</p>
+    </div>
+  </Link>
+);
 
 export default Dashboard;

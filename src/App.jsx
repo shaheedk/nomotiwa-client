@@ -11,7 +11,8 @@ import Layout from './pages/Layout';
 
 const App = () => {
   return (
-    <Router>
+    <div className='bg-teal-50'>
+    <Router >
       <Toaster position="top-right" />
       <Routes>
         {/* Redirect root to login */}
@@ -38,6 +39,7 @@ const App = () => {
         />
       </Routes>
     </Router>
+    </div>
   );
 };
 

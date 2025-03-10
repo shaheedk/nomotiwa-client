@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import axiosInstance from "../api/axiosInstance.js";
+import { BadgeCheck, UserCircle } from "lucide-react";
 
 const socket = io("https://nomotiwa-backend.onrender.com/");
 
@@ -42,7 +43,6 @@ function User() {
 
   useEffect(() => {
     doctors.forEach(doctor => {
-        console.log(doctor)
       socket.emit("joinDoctorRoom", doctor._id);
     });
 
@@ -65,37 +65,31 @@ function User() {
   }, [doctors]);
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen">
-      <h2 className="text-3xl font-bold mb-8 text-gray-800">Doctor's Token System</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="p-6 bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+      <h2 className="text-4xl font-extrabold mb-8 text-gray-800 text-center">Doctor's Token System</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {doctors.map((doctor) => (
           <div 
             key={doctor._id} 
-            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+            className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-200"
           >
-            <div className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-800">
-                    Dr. {doctor.name}
-                  </h3>
-                  <p className="text-sm text-gray-500 mt-1">
-                    {doctor.specialization}
-                  </p>
-                </div>
-                <div className="bg-blue-50 rounded-full p-4">
-                  <span className="text-2xl font-bold text-blue-600">
-                    {doctorTokens[doctor._id]}
-                  </span>
+            <div className="p-6 flex flex-col items-center">
+              <UserCircle className="h-16 w-16 text-indigo-500 mb-3" />
+              <h3 className="text-2xl font-bold text-gray-800">Dr. {doctor.name}</h3>
+              <p className="text-sm text-gray-500 mt-1">{doctor.specialization}</p>
+              
+              <div className="mt-6 w-full flex justify-center">
+                <div className="bg-blue-100 text-blue-600 px-6 py-3 rounded-full text-lg font-bold shadow-inner">
+                  {doctorTokens[doctor._id]}
                 </div>
               </div>
               
-              <div className="flex items-center mt-4 pt-4 border-t border-gray-100">
+              <div className="flex items-center mt-6 pt-4 border-t border-gray-200 w-full justify-center">
                 <div className="flex items-center space-x-2">
-                  <div className={`w-2 h-2 rounded-full ${
+                  <div className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     doctorTokens[doctor._id] === "Waiting..." 
                       ? "bg-yellow-400" 
-                      : "bg-green-400"
+                      : "bg-green-500"
                   }`}></div>
                   <span className="text-sm text-gray-600">
                     {doctorTokens[doctor._id] === "Waiting..." 
@@ -103,6 +97,9 @@ function User() {
                       : "Token Active"}
                   </span>
                 </div>
+                {doctorTokens[doctor._id] !== "Waiting..." && (
+                  <BadgeCheck className="h-5 w-5 text-green-500 ml-2" />
+                )}
               </div>
             </div>
           </div>
