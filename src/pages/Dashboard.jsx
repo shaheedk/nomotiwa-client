@@ -14,11 +14,11 @@ function Dashboard() {
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-gray-700">temp user</span>
-              <button
+              <Link to='/login'
                 className="text-gray-600 hover:text-gray-900"
               >
                 Logout
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@ function Dashboard() {
           </Link>
 
           <Link
-            to="/profile"
+            to="/token-panel"
             className="bg-white overflow-hidden shadow rounded-lg hover:shadow-md transition-shadow"
           >
             <div className="p-6">
@@ -74,7 +74,7 @@ function Dashboard() {
                   <UserCircle className="h-8 w-8 text-purple-600" />
                 </div>
                 <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">Staff Profile</h3>
+                  <h3 className="text-lg font-medium text-gray-900">Token Panel</h3>
                   <p className="mt-1 text-sm text-gray-500">
                     View and update your profile
                   </p>

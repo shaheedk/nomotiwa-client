@@ -6,21 +6,36 @@ import Dashboard from './pages/Dashboard';
 import DoctorManagement from './pages/DoctorManagement';
 import TokenBooking from './pages/TokenBooking';
 import TokenDisplay from './pages/TokenDisplay';
-import NotFound from './pages/NotFound';
 import User from './pages/User';
+import Layout from './pages/Layout';
+
 const App = () => {
   return (
     <Router>
       <Toaster position="top-right" />
       <Routes>
+        {/* Redirect root to login */}
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/dummyuser" element={<User/>} />
+
+        {/* Public Route (No Sidebar) */}
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/doctor-management" element={<DoctorManagement />} />
-        <Route path="/token-booking" element={<TokenBooking />} />
-        <Route path="/token-panel" element={<TokenDisplay/>} />
-        <Route path="*" element={<NotFound/>} />
+
+        {/* Protected Routes (With Sidebar) */}
+        <Route
+          path="/*"
+          element={
+            <Layout>
+              <Routes>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/doctors" element={<DoctorManagement />} />
+                <Route path="/tokens" element={<TokenBooking />} />
+                <Route path="/token-panel" element={<TokenDisplay />} />
+                <Route path="/dummyuser" element={<User />} />
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+              </Routes>
+            </Layout>
+          }
+        />
       </Routes>
     </Router>
   );
